@@ -6,7 +6,7 @@
 
 [2.List, String](#List)
 
-[3.Function and Console I/O](#function-and-console-i/o)
+[3.Function and Console I/O](#function-and-console-input-output)
 
 [4.좋은 코드의 중요성](#좋은-코드란)
 
@@ -118,7 +118,7 @@ print('{} {}'.format(1,2))
    
    * 이때도 padding+<,> 가능
 
-# Function and Console I/O
+# Function and Console Input Output
 
 
 
