@@ -5,3 +5,5 @@
 
 Day1 : [Day1](notes/Day1.md)
 
+Day2 : [Day2](notes/Day1.md)
+
