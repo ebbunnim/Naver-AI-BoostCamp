@@ -2,11 +2,11 @@
 
 
 
-[1. 변수, 이진수](#파이썬의-변수)
+[1.변수, 이진수](#파이썬의-변수)
 
 [2.List, String](#List)
 
-[3.Function and Console I/O](#Function-and-Console-I/O)
+[3.Function and Console I/O](#function-and-console-i/o)
 
 [4.좋은 코드의 중요성](#좋은-코드란)
 
