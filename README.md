@@ -7,3 +7,4 @@ Day1 : [Day1](notes/Day1.md)
 
 Day2 : [Day2](notes/Day2.md)
 
+Day2 : [Day3](notes/Day3.md)
