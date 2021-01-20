@@ -1,16 +1,16 @@
 # Day3
 
-[1. 자료형 이해](#-스택과-큐)
+[1. 자료형 이해](#스택과-큐)
 
-[2. What is Pythoic?](#-Pythonic-Code)
+[2. What is Pythoic?](#Pythonic-Code)
 
-[3. generator and advanced function](##generator)
+[3. generator and advanced function](#generator)
 
 # | 개인 학습
 
 :sparkles: 정규식에 대해서 추가로 공부했습니다. 얕게 공부한 느낌이라 더 깊이 공부해야 할 것 같습니다.
 
-https://blog.naver.com/sjy263942
+https://blog.naver.com/sjy263942/222213851088
 
 
 # | 회고
@@ -174,7 +174,7 @@ print(enumerate(zip(alist,blist)))
     # 3,6,10,15 => 15 최종출력
     ```
 
-## generator
+# generator
 * iterable object의 특수한 형태로 사용하는 함수
 * iterable object : 시퀀스 자료형에서 데이터를 순서대로 추출하는 object
     * 내부적으로 __inter__와 __next__가 사용된다. 따라서 iter(), next() 함수로 iterable한 객체롤 iterator object로 사용한다.
