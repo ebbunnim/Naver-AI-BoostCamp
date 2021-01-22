@@ -2,8 +2,8 @@
 log/
 test.py
 *.pickle
-testfile.txt
-example.cfg
+./testfile.txt
+./example.cfg
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,vscode,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,vscode,windows
