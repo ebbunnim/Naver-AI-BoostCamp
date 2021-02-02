@@ -24,29 +24,30 @@
 # Optimization의 중요 개념
 * 명확하게 용어를 이해하지 못하면 혼란스러울 수 있으니 주의해서 공부
 
-1. Generalization  
+1. `Generalization`
 - 일반화 성능을 높이는게 많은 경우 목표
 - 일반화 : 학습할 때 training error는 보통 줄어들게 됨. 근데 0이라고 해서 우리가 원하는 최적값에 도달했다고는 알 수 없음. 오히려 test 데이터에 대해서는 성능이 떨어져서 error 높아질 수도. 결국 `Generalization gap`은 test error ~ training error 차이를 의미
 - `"generalization 성능이 좋다"` : 만든 네트워크의 실제 성능이 학습 데이터 활용한 것과 비슷하게 나올 것이라고 보장. 반면 네트워크 안좋아서 학습 데이터 성능 자체가 좋지 못하면 generalization 좋다고 해도 좋다고 말할 수 없다. 
 ![](images/96.JPG)
 
-2. Under-fitting vs Over fitting  
+2. `Under-fitting vs Over fitting`  
 - over fitting : 학습 데이터에서는 잘 동작하지만, 테스트 데이터에 대해서는 잘 동작하지 않는 현상
 - under fitting : 네트워크가 너무 간단하거나 training 너무 조금 시켜서 학습 데이터도 잘 못추는 것
 - 그러나 over/underfitting은 이론적. 실제로는 over/underfit graph처럼 변하는게 목적일수도
 ![](images/97.JPG)
 
-3. Cross Validation  
+3. `Cross Validation`  
 - k-folded validation이라고도 함
 - train data와 validation data를 나누고 트레이닝 시킨다. 학습 데이터로 학습시킨 모델이 학습에 사용되지 않은 validation 기준으로 얼마나 성능이 잘 나오는지 보는 것.
 - 그럼 데이터를 어떻게 나눌까>?
     -  학습 데이터 k개 중 k-1개로 training, 1개로 validation 잡는 과정 반복
 - 일반적으로는 뉴럴넷 학습하는데 많은 하이퍼파라미터 존재하는데 어떤 값이 좋은 값인지 모른다. 그래서 cross validation하여 최적의 하이퍼파라미터셋 찾고 그 하이퍼파라미터 고정한 상태서 모든 학습 데이터 다 사용해서 train. 단, test data는 절대 건들이면 안됨. cheating임
     - 파라미터 - 내가 최적해에서 찾고 싶은 값
-    - 하이퍼파라미터는 내가 정하는 값. lr,loss func 정함 등
-![](images/98.JPG)
+    - 하이퍼파라미터는 내가 정하는 값. lr,loss func 정함 등 
+  
+    ![](images/98.JPG)
 
-4. Bias-variance tradeoff  
+4. `Bias-variance tradeoff`  
 - Underfitting, Overfitting과 상통. 
 - variance : 내가 입력을 넣었을 떄 출력이 얼마나 `일관적으로 나오는지`를 말함
     - low variance의 경우는 간단한 모델로 설정하면 됨. bias만 shift하면 되니까
@@ -60,13 +61,13 @@
     - 즉 bias를 낮추면 variance가 높아질 가능성이 크다. (반대도 성립)
     (noise 껴있는 상황에서 bias,variance 둘 다 줄이는 것은 사실상 얻기 힘들다.)
 
-5. Bootstrapping  
+5. `Bootstrapping`  
 - 학습 데이터 중 일부 데이터를 활용해서 model 1, 일부 데이터 활용해 model2 ....
 하나의 입력에 대해서 model이 다 같게 예측할 수도 있고, 다르게 예측할 수도
 - 그래서 model 예측치의 `consensus`를 보고 `전체 모델의 uncertainty를 예측`하고자 할 때 사용
 - 즉, 학습 데이터 고정되어 있을 때 random-subsampling을 통해서 학습 데이터를 여러개 만들고 그걸로 여러 metric or model을 만들어서 예측하겠다는 것
 
-6. Bagging and boosting  
+6. `Bagging and boosting`  
 - Bagging(Boostrapping aggregating)
     - 학습 데이터가 고정되어 있을 때 학습 데이터 여러개 만드는 boostraping함 + 그 ouput을 평균 내겠다. 일반적으로 앙상블이라고 불리기도 함.
 - Boosting 
@@ -93,11 +94,11 @@
 
     * `Mini-batch gradient descent`  
         * Batch-size Matters  
-        * large batch-size : `sharp minimizers` 도달
-        * small batch-size : `flat minimizers` 도달
-        * (결론) sharp minimizers에 도달하는 것보다 flat minimizers에 도달하는게 더 좋다.
-        * ![](images/87.JPG)
-            * 목적은 testing function에서의 minimum을 찾고 싶은 것 (not training func)
+        * large batch-size : `sharp minimum` 도달
+        * small batch-size : `flat minimum` 도달
+        * (결론) sharp minimum에 도달하는 것보다 flat minimum에 도달하는게 더 좋다.
+        ![](images/87.JPG)
+            * 목적은 testing loss function에서의 minimum을 찾고 싶은 것 (not training func)
             * flat minimizer은 training func에서 멀어져도 testing func에서 적당히 낮은 값 나옴. 트레이닝 데이터에서 성능이 잘 나오면 테스트 데이터에서도 성능이 잘 나옴. 즉 `generalization performance`가 좋다.
             * 반면 sharp minimzer의 경우에는 training func에서 local minimum도달했어도 testing func에서 약간만 멀어지면 testing func에서 높은 값 나옴. 트레이닝 단계에서 나온 값들이(accuary, loss 등) 테스트 데이터에서는 퍼포먼스가 안나올 수 있음. `generalization performance`가 좋지 않다.
 
