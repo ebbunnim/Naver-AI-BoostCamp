@@ -1,6 +1,26 @@
 # Day12
 
+[1.optimization 중요 개념](#optimization의-중요-개념)
 
+[2.practical gradient descent methos](#practical-gradient-descent-methods)
+
+[3.gradient descend](#gradient-descent-methods)
+
+[4.regularization](#regularization)
+
+[5.cnn](#cnn)
+
+[6.convolution연산](#convolution-연산-이해하기)
+
+</br>
+
+# | 회고
+
+오늘은 퀴즈 풀면서 부족함을 많이 느꼈습니다. 뉴럴 네트워크를 구조화하면서 다시 한번 학습해보겠습니다. 피어세션 때 누리님께서 파라메터 설정 과정을 도식화하시면서 강의해주셨는데, 덕분에 궁금한 점들 해결되었습니다!  ㅎㅎ 감사한 하루였습니다~!
+
+</br>
+
+# | 강의
 # Optimization의 중요 개념
 * 명확하게 용어를 이해하지 못하면 혼란스러울 수 있으니 주의해서 공부
 
@@ -56,6 +76,12 @@
   
   ![](images/100.JPG)
 
+</br>
+
+# 실습 
+* optimizer 비교 (SGD vs Momentum vs Adam)  
+* [실습코드](../notes/jupyter/Day12_Optimizer.ipynb)
+</br>
 
 # Practical Gradient Descent Methods  
 1. Stochastic gradient descent
@@ -72,7 +98,7 @@
         * (결론) sharp minimizers에 도달하는 것보다 flat minimizers에 도달하는게 더 좋다.
         * ![](images/87.JPG)
             * 목적은 testing function에서의 minimum을 찾고 싶은 것 (not training func)
-            * flat minimizer은 traing func에서 멀어져도 testing func에서 적당히 낮은 값 나옴. 트레이닝 데이터에서 성능이 잘 나오면 테스트 데이터에서도 성능이 잘 나옴. 즉 `generalization performance`가 좋다.
+            * flat minimizer은 training func에서 멀어져도 testing func에서 적당히 낮은 값 나옴. 트레이닝 데이터에서 성능이 잘 나오면 테스트 데이터에서도 성능이 잘 나옴. 즉 `generalization performance`가 좋다.
             * 반면 sharp minimzer의 경우에는 training func에서 local minimum도달했어도 testing func에서 약간만 멀어지면 testing func에서 높은 값 나옴. 트레이닝 단계에서 나온 값들이(accuary, loss 등) 테스트 데이터에서는 퍼포먼스가 안나올 수 있음. `generalization performance`가 좋지 않다.
 
 # Gradient Descent Methods  
@@ -144,3 +170,39 @@
 - BN 적용하고자 하는 레이어의 statistics를 정규화시킨다.
 - NN 각각 layer가 히든 레이어 X개를 가질 때, 그 파라미터에 대한 분포를 mean 0로 정규화
 - 히든 레이어 많을 때 활용하면 성능 높일 수 있다고 알려져 있음
+
+# CNN
+- 이전까지 배운 MLP는 각 뉴런들이 선형모델과 활성함수로 모두 연결된 `fully connected` 구조
+    - 가중치 행렬 사이즈가 굉장히 크고 학습시켜야 할 파리미터 수가 많아진다는 한계 존재  
+![](images/103.JPG)
+![](images/104.JPG)
+- 그러나 Convolution 연산은 이와 달리 `커널`을 입력벡터 상에서 움직여가면서 선형모델과 합성함수가 적용되는 구조. i에 따라 가중치 행렬 바뀌는게 아니라 커널이 `고정`됨. 공통된 커널 사용. 파라미터 사이즈를 굉장히 많이 줄일 수 있다는 특징 가짐.
+![](images/105.JPG)
+![](images/106.JPG)
+- Convolution 연산의 수학적 의미는 신호를 `커널을 이용해 국소적으로 증폭 또는 감소`시켜서 정보를 추출 또는 필터링하는 것. 그리고 CNN에서 사용하는 연산은 정확히는 cross-correlation이라고 부름
+  
+# Convolution 연산 이해하기
+- 커널은 정의역 내에서 `움직여도 변하지 않고(translation invariant)`, 주어진 신호에 `국소적(local)`으로 적용
+![](images/112.JPG)
+- 1차원뿐만 아니라 다양한 차원에서 계산 가능
+    *데이터 성격에 따라 사용하는 커널이 달라짐. 음성/텍스트 1D-conv,흑백영상 2D-conv, 컬러영상 3D-conv*
+    1. 1D-conv : $[f*g](i)=\sum_{p=1}^{d}f(p)g(i+p)$
+    2. 2D-conv : $[f*g](i,j)=\sum_{p,q}^{d}f(p,q)g(i+p,j+q)$
+    3. 3D-conv : $[f*g](i,j,k)=\sum_{p,q,r}^{d}f(p,q,r)g(i+p,j+q,k+r)$   
+    **i,j,k가 바뀌어도 커널 f의 값은 바뀌지 않는다.**
+- 2D-conv 연산
+    - 커널을 입력벡터 상에서 움직여가며 선형모델과 합성함수가 적용되는 구조
+    ![](images/107.JPG)
+    - 입력 크기를 (H,W), 커널 크기를 ($K_H, K_W$), 출력 크기를 ($O_H,O_W$)라고 하면,
+        - 출력 크기 계산
+        - $O_H=H-K_H+1$ 
+        - $O_W=W-K_W+1$
+- 3D-conv 연산
+    - 2D-conv를 3번 적용한다고 생각하면 됨
+    ![](images/108.JPG)
+    - Tensor를 직육면체 블록으로 이해해보기 (*3차원부터는 행렬이 아닌 Tensor라고 부름*)
+    ![](images/110.JPG)
+- 역전파
+    - Convolution 연산은 커널이 모든 입력데이터에 공통으로 적용되기 때문에 역전파를 계산할 때도 convolution 연산이 나오게 된다.
+    ![](images/111.JPG)
+    
