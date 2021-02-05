@@ -49,7 +49,7 @@
     -  `Attention(Q,K,V)=Attention Value`
     - 주어진 Query에 대해 모든 Key와의 유사도를 각각 구한다.
     - 그리고, 이 유사도를 key와 mapping되어있는 각각의 value에 반영한다.
-    - 유사도가 반영된 value를 모두 더해서(=>Attention value) 리턴한다.
+    - 유사도가 반영된 value를 모두 더해서(=>Attention value) 리턴한다.  
     ![](images/164.JPG)
 - Query, Key, Value
 1. Query: 영향을 `받는` 단어 변수
@@ -77,12 +77,12 @@
     - $score(s_t,h_i)=s_i^{T}h_i$
     - $e^t=[s_t^{T}h_1,...s_t^{T}h_n]$ : attention score의 모음값
 2. Softmax 함수를 통해 `Attention Distribution` 구하기
-- $e^t에 softmax 적용하면 모든 값을 합하면 1이 되는 확률 분포를 얻음 : `Attention Distribution`
+- $e^t$에 softmax 적용하면 모든 값을 합하면 1이 되는 확률 분포를 얻음 : `Attention Distribution`
 - 이때 각각의 값이 `Attention Weight` (그림에서 직사각형 크기)   
 - $\alpha_t=softmax(e^t)$ : `attention distribution`  
     ![](images/173.JPG)
-3. `Attention Value`구하기
-- 각 encoder의 attention weight과 hidden state를 가중합(Weighted Sum)
+3. `Attention Value`구하기  
+- 각 encoder의 attention weight과 hidden state를 가중합(Weighted Sum)    
     ![](images/174.JPG)
 - $a_t=\sum_{i=1}^N\alpha_i^{t}h_i$ : `attention value` or `context vector`(encoder의 문맥을 포함하고 있다)
     - (주의) seq2seq에서의 context vector와 다른 의미   
@@ -96,7 +96,7 @@
 5. 출력층 연산의 입력이 되는 $\tilde{s_t}$ 계산 
 - $v_t$를 바로 출력층으로 보내기 전에 신경망 연산 한번 더 추가
 - 가중치 행렬과 곱한 후 tanh 함수 통과해 출력층 연산을 위한 새로운 벡터인 $\tilde{s_t}$ 도출
-- seq2seq에서는 출력층 입력이 $s_t$였지만 attention mechanism에서는 $\tilde{s_t}$
+- seq2seq에서는 출력층 입력이 $s_t$였지만 attention mechanism에서는 $\tilde{s_t}$  
 ![](images/176.JPG)
 - 식 도출 및 $\tilde{s_t}$를 출력층 입력으로 사용   
     ![](images/177.JPG)  
@@ -109,7 +109,50 @@
 
 
 ## Transformer
-* 업데이트 예정 *
+- RNN을 사용하지 않고 encoder, decoder 구조 설계했음에도 성능이 더 우수
+- (현재까지 flow)
+    - seq2seq : encoder가 입력 sequence 하나의 vector로 압축하는 과정에서 정보 손실
+    - Attention : seq2seq 한계 보완하기 위해 사용
+    - Transformer : Attention 자체로 encoder, decoder 만듬 (보완용x)
+- `Hyper-parameter` (사용자가 모델 설계 시 임의로 변경할 수 있는 값)
+    - $d_{model}$ : Transformer의 encoder, decoder에서 정해진 입출력의 크기
+        - embedding vector의 Dimension이기도 함
+        - 각 층의 encoder와 decoder가 next layer로 값을 보낼때 이 차원을 유지
+        - 논문에서는 512로 상정
+    - num_layers : encoder+decoder layer가 몇 개 쌓여있는지 의미
+        - 논문에서는 각각 6개 쌓음
+    - num_heads : Attention을 한번 수행하기보다, 여러 개로 분할해서 병렬로 Attention을 수행하고 결과값을 다시 하나로 합치는 방식 채택. 이때의 병렬 개수를 의미
+    - $d_{ff}$ : Transformer 내부에 feed forward nn 존재. 이때의 은닉층 크기. feed forward nn과 출력층의 크기는 $d_{model}$임
+- `Transformer`
+    - seq2seq 와 다른 점
+    1. RNN 사용 안함
+    2. encoder+decoder 구조가 존재한다는 점은 같지만 N개 존재할 수 있다는 점은 다르다.
+    3. seq2seq는 encoder, decoder 각각 하나의 RNN이 t개의 time-step을 가지는 구조였다면, Transformer은 encoder, decoder 단위가 N개로 구성됨
+    - [Example] 6개 쌓여있는 encoders/decoders   
+    ![](images/179.JPG)
+    4. encoder`s`,decoder`s`은 조정된 embedding vector를 입력받는다. (Positional Encoding)
+- `Positional Encoding`
+    - RNN이 NLP에 유용했던 이유도 단어의 위치에 따라서 단어를 순차적으로 입력받아 처리하는 특성이 있었기 때문
+    - 그러나 Transformer은 단어 입력을 순차적으로 입력 받는 방식이 아니다. 따라서 위치 정보를 알려줄 필요가 있음. 
+    - 따라서 단어 임베딩 벡터에 위치 정보를 더해 모델 입력으로 사용. Positional Encoding   
+    ![](images/180.JPG)
+    ![](images/181.JPG)
+    - 위치 정보를 가진 값을 만들기 위해 두가지 함수를 사용(차원의 홀수, 짝수에 따라 sin,cos 함수 사용)
+        - (자세한 내용 참고) https://pozalabs.github.io/transformer/     
+        ![](images/182.JPG)
+    - 순서 정보가 보존되기 때문에, 같은 단어가 들어가도 위치에 따라서 Transformer 입력으로 들어가는 embedding vector 값이 달라진다.
+- 세가지 `Attention`  
+    ![](images/183.JPG)
+    - Self Attention: Query, Key, Value가 동일한 경우(==not vector값. vector의 출처. 인코더 / 디코더 등)
+    1. Encoder Self-Attention : Query = Key = Value
+    2. Masked Decoder Self-Attention : Query = Key = Value
+    3. Encoder-Decoder Attention : Query : decoder 벡터 / Key = Value : encoder 벡터  
+    ![](images/184.JPG)
+- `Encoder`
+    - 하나의 encoder 층은 크게 총 2개의 sublayer로 나뉘어짐
+    1. self attention -> multi head self attention은 self attention 병렬적으로 사용했다는 의미 
+    2. feed forward nn (==position-wise FFNN)
+
 
 # | 강의 
 # Generative Models
