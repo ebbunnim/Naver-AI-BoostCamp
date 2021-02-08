@@ -164,7 +164,7 @@
 2. feed forward nn(==position-wise FFNN)
 ## Encoder's Self Attention
 0. Intro
-- 기존의 Attentin 은 주어진 쿼리와 모든 키와의 유사도를 구하고, 유사도를 가중치로 하여 키와 맵칭되어 있는 value를 반영, 모두 가중합하는 구조
+- 기존의 Attention 은 주어진 쿼리와 모든 키와의 유사도를 구하고, 유사도를 가중치로 하여 키와 맵칭되어 있는 value를 반영, 모두 가중합하는 구조
 - self attention은 attention을 자기 자신에게 수행한다는 의미
     ```
     # attention
@@ -195,7 +195,7 @@
     - Q/K vector 크기 : $d_k$
     - Q/K matrix 크기 : (seq_len,$d_k$)
     - V vector 크기 : $d_v$
-    - V metrx 크기 : (seq_len,$d_v$)
+    - V matrix 크기 : (seq_len,$d_v$)
     - `가중치 행렬 크기 추정`
         - $W^Q$, $W^K$ : ($d_{model},d_k$)
         - $W^V$ : ($d_{model},d_v$)
@@ -207,7 +207,7 @@
     - 현재까지 $d_{model}$ 차원을 num_heads로 나누어 축소시킨 벡터로 Attention을 수행했음. 그 이유는, `한번의 Attention 보다 여러번의 Attention을 병렬로 처리하는게 더 효과적이라고 판단되기 때문`. ("여러 시점에서 대상을 보고 싶다"와 상통)
         - [Example]
         - "The animal didnt cross the street because it was too tired."
-        - it : 한 attention head는 it~animal과 연관도를 높게 본다면, 다른 attention head는 it~tired의 연관도를 높게 볼 수 있다. 각 attention head는 전부 다른 "시각"을 가짐
+        - it : 한 attention head는 it와 animal과의 연관도를 높게 본다면, 다른 attention head는 it와 tired 간의 연관도를 높게 볼 수 있다. 각 attention head는 전부 다른 "시각"을 가짐
     2. Concatenate all attention heads   
     ![](images/189.JPG)
         - 크기 (seq_len, $d_{model}$)   
