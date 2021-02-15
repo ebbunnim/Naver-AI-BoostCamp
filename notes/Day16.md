@@ -16,11 +16,11 @@
 
 # | 개인학습
 
-1. CBOW 도식화 
+### CBOW 도식화 
 - 강의 자료는 predicted W'WX 구조로 predicted Y(score vector)연산. 내가 도식화한 부분은 XWW' 구조   
 ![](images/200.jpg)
 
-2. 혼동되었던 점   
+### 혼동되었던 점   
 `nn.Embedding()에 one-hot vector가 input으로 들어가지 않아서 의문스러웠음.`  
 - 파이토치는 단어 -> 정수 index로만 바꾼 `단어 사전을 그대로 embedding layer 입력으로 사용해도` embedding vector를 return (softmax는 마지막에 안씌운 상태로 결과값 도출됨)
 - 
@@ -36,15 +36,15 @@
             [-0.4817, -1.1222,  2.2774]], requires_grad=True)
     ```
 - (참고) https://wikidocs.net/64904
-- 나이브 베이즈 분류기 만들때는 label 예측까지 끝낸 상태였고, word2vec 실습때는 embedding layer 학습시키는 것에 초점을 두었음. 따라서 (embedding+평균 벡터) 만드는 과정은 위 그림에서 W, Linear층을 거치게 하는 것은 W'을 거치는 것이라고 볼 수 있음!
+- 나이브 베이즈 분류기 만들때는 label 예측까지 끝낸 상태였고, word2vec 실습때는 embedding layer 학습시키는 것에 초점을 두었음. 따라서 (embedding+평균 벡터) 만드는 과정은 위 그림에서 W 내적 과정으로 볼 수 있고, Linear층을 거치게 하는 것은 W'을 거치는 것으로 볼 수 있음!
 
-1. likelihood
--  데이터를 관찰하면 `데이터가 추출되었을 것으로 생각되는 분포의 특성`을 추정할 수 있다. (파란색 곡선보다 주황색 곡선에서 데이터를 얻을 가능성이 더 큼)            
-![](images/201.jpg)   
+### likelihood
+-  데이터를 관찰하면 `데이터가 추출되었을 것으로 생각되는 분포의 특성`을 추정할 수 있다. (파란색 곡선보다 주황색 곡선에서 데이터를 얻을 가능성이 더 큼)         
+    ![](images/201.JPG)   
 - likelihood는 "지금 얻은 데이터가 특정 분포에서 나왔을 가능도"를 의미
 - 강의에서는 나이브 베이즈 classifier 쓸 때, lableling class인 C라는 조건 하에 단어 X가 등장할 확률을 의미 
 
-4. word2vec
+### word2vec
 - CBOW or Skip-Gram 방식 있음
 - CBOW는 주변에 있는 단어들을 가지고, 중간에 있는 단어들을 예측하는 방법. 반대로, Skip-Gram은 중간에 있는 단어로 주변 단어들을 예측하는 방법
 - 대체적으로 Word2Vec를 사용한다고 하면 SGNS(Skip-Gram with Negative Sampling)을 사용
@@ -62,13 +62,14 @@
         -  '비슷한 위치에서 등장하는 단어들은 비슷한 의미를 가진다'라는 가정
     - 희소 표현이 고차원에 각 차원이 분리된 표현 방법이었다면, 분산 표현은 저차원에 단어의 의미를 여러 차원에다가 분산하여 표현. 단어 간 유사도 계산 가능
     - 학습 방법 중 NNLM,RNNLM 등이 있지만 word2vec 많이 쓰임
-
-5. Glove
+    - 
+### Glove
 - LSA는 카운트 기반으로 코퍼스의 전체적인 통계 정보를 고려하기는 하지만 왕:남자 = 여왕:? (정답은 여자)와 같은 단어 의미의 유추 작업(Analogy task)에는 성능이 떨어진다. 
 - Word2Vec는 예측 기반으로 단어 간 유추 작업에는 LSA보다 뛰어나지만, 임베딩 벡터가 윈도우 크기 내에서만 
 주변 단어를 고려하기 때문에 코퍼스의 전체적인 통계 정보를 반영하지 못한다. 
 - GloVe는 이러한 기존 방법론들의 
 각각의 한계를 지적하며, LSA의 메커니즘이었던 카운트 기반의 방법과 Word2Vec의 메커니즘이었던 예측 기반의 방법론 두 가지를 모두 사용
+
 # | 강의
 
 # INFO
@@ -119,7 +120,6 @@
     - transposed W(입력 단어 버전의 word embedding), W'(출력 단어 버전의 word embedding) 가중치 행렬 학습 한 이후로는 다음과 같이 된다.         
     ![](images/206.jpg)   
     - (ex) juice와 drink는 유사한 벡터 표현형을 가지게 됨. 둘 간의 내적값이 최대한 커짐(학습 목표)
-    - (jy) 결국 W'를 
 
 ## Glove
 1. loss func(목적 함수) 다음과 같이 달라짐
