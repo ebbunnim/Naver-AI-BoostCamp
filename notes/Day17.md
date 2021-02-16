@@ -104,7 +104,7 @@
 
 ## GRU   
 
- ![](images/224.JPG)    
+![](images/224.JPG)    
 - LSTM 모델 구조 경량화 : 적은 메모리 요구량, 빠른 계산 시간이 가능하도록 만듬
 - LSTM의 cell,hidden state vector를 hidden state vector로 일원화
 - cell state 없는 만큼, h_t가 cell state vector역할과 비슷한 역할을 함
