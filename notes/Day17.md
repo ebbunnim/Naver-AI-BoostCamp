@@ -25,8 +25,8 @@
     - RNN을 이용한 character-level의 language model
 - 단, RNN을 이용한 Language Model에서는 초반 time step의 정보를 전달하기 어려운 점, gradient vanishing/exploding이 발생하는 문제가 존재한다. (해결법에 대해서 LSTM,GRU 마지막 부분 참고!)    
 - 매 timestep에서 파라메터 W(Fully connecte layer상에서 weight)가 공유되는 것이 가장 큰 특징   
-     ![](images/209.JPG)  
-    ![](images/211.JPG)   
+     ![](images/209.JPG)     
+     ![](images/211.JPG)   
   
 </br>
 
@@ -102,8 +102,9 @@
     - h_t : cell state vector을 한번 더 가공해서 다음 층에 노출할 정보만 filtering해둠. 이후 output layer의 입력으로 들어감   
     - ![](images/223.JPG)
 
-## GRU
-![](images/224.JPG)
+## GRU   
+
+ ![](images/224.JPG)    
 - LSTM 모델 구조 경량화 : 적은 메모리 요구량, 빠른 계산 시간이 가능하도록 만듬
 - LSTM의 cell,hidden state vector를 hidden state vector로 일원화
 - cell state 없는 만큼, h_t가 cell state vector역할과 비슷한 역할을 함
