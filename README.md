@@ -3,6 +3,8 @@
 
 :sparkles: 부스트캠프 학습 정리를 위한 공간입니다.
 
+Day20 : [Day20](notes/Day20.md)
+
 Day19 : [Day19](notes/Day19.md)
 
 Day18 : [Day18](notes/Day18.md)
