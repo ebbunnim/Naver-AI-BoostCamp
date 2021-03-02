@@ -2,6 +2,7 @@
 
 
 :sparkles: 부스트캠프 학습 정리를 위한 공간입니다.
+Day27 : [Day27](notes/Day27.md)
 
 Day21 : [Day21](notes/Day21.md)
 
