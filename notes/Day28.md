@@ -7,5 +7,6 @@
 - 피어세션에서 P stage를 들어가기 전 각자 원하는 토이프로젝트를 진행하기로 했습니다. 저는 이전 프로젝트[Django+Mysql+React]를 버전업 해보는 프로젝트를 계획하고 있습니다.
 - 따라서 오늘은 어플리케이션들을 docker-compose로 구성하고 도커 허브에 이미지를 push하는 것까지 진행햇습니다.
 - 고생했던 점은, 도커 사용시 Vmmem이 거의 CPU와 메모리를 독점하다시피 사용해서 다른 프로세스를 킬 때 버벅거림 현상이 너무 심하더라구요.. ㅠㅠ 그리고 node 이미지를 pull받고 npm을 install하는 과정에서 package-lock.json을 삭제하지 않아서 생기는 이슈가 있어서 헤맸었습니다. 현재까지는 nginx, react, mysql, django까지를 이미지로 구성한 상태입니다. 아직 모델 서빙과 관련된 아키텍처는 건들이지를 못했네요.. ㅠㅠ 내일 다시 고민해보겠습니다.
+- 
+![성공](https://user-images.githubusercontent.com/46434838/109820585-7c675a80-7c78-11eb-92e0-80b1533aa83c.JPG)
 
-![성공](https://user-images.githubusercontent.com/46434838/109819428-61e0b180-7c77-11eb-8bb9-cfec7bea0632.JPG)
